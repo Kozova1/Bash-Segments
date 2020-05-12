@@ -2,6 +2,7 @@
 """Creates a PS1 from a prompt.json file."""
 
 import sys
+import os
 import json
 from typing import List, Dict
 
@@ -51,7 +52,9 @@ class Segment():
 prompt_obj: Dict[str, any] = {}
 try:
     s: str = ''
-    with open('./prompt.json', 'r') as f:
+    base_conf_dir = os.getenv('XDG_CONFIG_HOME', '~/.config')
+    file_path = os.path.join(base_conf_dir, 'bash-segments', 'prompt.json')
+    with open(file_path, 'r') as f:
         s = f.read()
     prompt_obj = json.loads(s)
 except ValueError:
