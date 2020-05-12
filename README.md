@@ -32,7 +32,7 @@ Execute `~/.local/share/bash-segments/colors.py` to print the color palette.
 [Example Config](./prompt.json)
 ```json
 {
-	"separator": "",
+	"separator": "",
 	"separator_inverse": false,
 	"background_color": 8,
 	"space_at_end": false,
