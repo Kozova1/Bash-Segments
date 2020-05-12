@@ -1,22 +1,7 @@
 {
-	"separator": "|",
+	"separator": "/",
 	"separator_inverse": false,
 	"space_at_end": false,
 	"segments": [
-		{
-			"background": 0,
-			"foreground": 4,
-			"content": "hello from segment 1"
-		},
-		{
-			"background": 1,
-			"foreground": 3,
-			"content": "   hello from segment 2   "
-		},
-		{
-			"background": 6,
-			"foreground": 2,
-			"content": "path: \\w"
-		}
 	]
 }

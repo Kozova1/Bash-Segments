@@ -41,7 +41,7 @@ class Segment():
         """Renders the Segment into bash syntax"""
         my_color = self.get_color()
         my_contents = self.get_contents()
-        return setcolor(my_color) + my_contents + set_sepcolor(my_color) + separator
+        return setcolor(my_color) + my_contents
     def get_contents(self) -> str:
         """Returns the contents of the segment"""
         return self.contents
@@ -69,11 +69,13 @@ obj_segs: List[any] = []
 separator: str = '|'
 sep_inverse: bool = False
 IS_SPACE_END: bool = True
+BCOLOR: int = 0
 try:
     obj_segs = prompt_obj['segments']
     separator = prompt_obj['separator']
     sep_inverse = prompt_obj['separator_inverse']
     IS_SPACE_END = prompt_obj['space_at_end']
+    BCOLOR = prompt_obj['background_color']
 except KeyError:
     pass
 for seg in obj_segs:
@@ -87,8 +89,22 @@ for seg in obj_segs:
     segments.append(Segment(bg, fg, content))
 
 final_prompt: str = 'PS1="'
-for seg in segments:
+for i, seg in enumerate(segments):
     final_prompt += seg.draw()
+    next_seg: Segment = None
+    try:
+        next_seg = segments[i + 1]
+    except IndexError:
+        pass
+    new_color: Color = None
+    if next_seg == None:
+        new_color: Color = Color(seg.get_color().get_background(), BCOLOR)
+    else:
+        this_bg = seg.get_color().get_background()
+        next_bg = next_seg.get_color().get_background()
+        new_color: Color = Color(this_bg, next_bg)
+    final_prompt += (set_sepcolor(new_color) + separator)
+
 final_prompt += '$(tput sgr0)"'
 if IS_SPACE_END:
     final_prompt += ' '
