@@ -54,7 +54,7 @@ try:
     s: str = ''
     base_conf_dir = os.getenv('XDG_CONFIG_HOME', '~/.config')
     file_path = os.path.join(base_conf_dir, 'bash-segments', 'prompt.json')
-    with open(file_path, 'r') as f:
+    with open(os.path.expanduser(file_path), 'r') as f:
         s = f.read()
     prompt_obj = json.loads(s)
 except ValueError:
