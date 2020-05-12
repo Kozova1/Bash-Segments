@@ -1,5 +1,5 @@
-# Bash-Segments - Another bash prompt framework
 ![An image of the example config](./example_config.png)
+# Bash-Segments - Another bash prompt framework
 Bash-Segments is a small (less than 100 significant python lines of code) framework for customizing bash prompts. It reads a configuration from a JSON file and creates a prompt based on it. 
 ## Installation
 1. Clone the git repository and make sure you have python 3 installed:
