@@ -28,3 +28,33 @@ The segments consist of 3 values:
 The segments are drawn in the order that they appear in the JSON file.
 
 [Example Config](./prompt.json)
+```json
+{
+	"separator": "",
+	"separator_inverse": false,
+	"background_color": 8,
+	"space_at_end": false,
+	"segments": [
+		{
+			"content": "\\u",
+			"background": 0,
+			"foreground": 7
+		},
+		{
+			"content": "\\h",
+			"background": 4,
+			"foreground": 0
+		},
+		{
+			"content": "\\w",
+			"background": 2,
+			"foreground": 0
+		},
+		{
+			"content": "\\$",
+			"background": 1,
+			"foreground": 0
+		}
+	]
+}
+```
