@@ -58,10 +58,10 @@ try:
         s = f.read()
     prompt_obj = json.loads(s)
 except ValueError:
-    print('JSON Decode error, verify that your prompt.json is valid json')
+    print('JSON Decode error, verify that your prompt.json is valid json', file=sys.stderr)
     sys.exit(1)
 except OSError:
-    print('File open error, verify that prompt.json exists and is readable')
+    print('File open error, verify that prompt.json exists and is readable', file=sys.stderr)
     sys.exit(1)
 
 segments: List[Segment] = []
