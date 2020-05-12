@@ -18,6 +18,7 @@ There is some top level config:
 - separator\_inverse - (boolean, default: false) Whether to swap between the foreground and background color of the separator - required for some powerline symbols to render correctly.
 - space\_at\_end - (boolean, default: true) Whether to add a space after the prompt.
 - segments - (list of segments, default: []) What segments to put in the prompt.
+- background\_color - (int, default: 0) The background color of the terminal, needed for the end of the prompt.
 ### Segments
 The segments consist of 3 values:
 - background - (int, default: 0) The background color of the segment (and separator).
