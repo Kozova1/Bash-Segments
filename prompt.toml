@@ -1,0 +1,24 @@
+separator = ""
+separator_inverse = false
+background_color = 8
+space_at_end = false
+
+[[segments]]
+type = "username"
+background = 0
+foreground = 7
+
+[[segments]]
+type = "hostname-short"
+background = 4
+foreground = 0
+
+[[segments]]
+type = "directory"
+background = 2
+foreground = 0
+
+[[segments]]
+type = "$"
+background = 1
+foreground = 0

@@ -8,6 +8,7 @@ from typing import Dict, List
 from segment import Segment, swap, setcolor
 from color import Color
 from modules import parse_module
+from config_file import get_json, get_toml
 
 
 USE_DEBUG_CONFIG: bool = bool(os.getenv('BASH_SEGMENTS_DEBUG', False))
@@ -17,28 +18,11 @@ def set_sepcolor(color: Color) -> str:
     """Sets the color of the separator"""
     return setcolor(swap(color) if sep_inverse else color)
 
-
 prompt_obj: Dict[str, any] = {}
-try:
-    s: str = ""
-    base_conf_dir = os.getenv("XDG_CONFIG_HOME", "~/.config")
-    file_path = './prompt.json'
-    if not USE_DEBUG_CONFIG:
-        file_path = os.path.join(base_conf_dir, "bash-segments", "prompt.json")
-    with open(os.path.expanduser(file_path), "r") as f:
-        s = f.read()
-    prompt_obj = json.loads(s)
-except ValueError:
-    print(
-        "JSON Decode error, verify that your prompt.json is valid json", file=sys.stderr
-    )
-    sys.exit(1)
-except OSError:
-    print(
-        "File open error, verify that prompt.json exists and is readable",
-        file=sys.stderr,
-    )
-    sys.exit(1)
+
+prompt_obj, toml_ok = get_toml(debug=USE_DEBUG_CONFIG)
+if not toml_ok:
+    prompt_obj, json_ok = get_json(debug=USE_DEBUG_CONFIG)
 
 segments: List[Segment] = []
 obj_segs: List[any] = prompt_obj.get('segments', [])
