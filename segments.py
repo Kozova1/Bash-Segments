@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 """Creates a PS1 from a prompt.json file."""
 
-import json
 import os
-import sys
 from typing import Dict, List
 from segment import Segment, swap, setcolor
 from color import Color
@@ -11,12 +9,13 @@ from modules import parse_module
 from config_file import get_json, get_toml
 
 
-USE_DEBUG_CONFIG: bool = bool(os.getenv('BASH_SEGMENTS_DEBUG', False))
+USE_DEBUG_CONFIG: bool = bool(os.getenv("BASH_SEGMENTS_DEBUG", None))
 
 
 def set_sepcolor(color: Color) -> str:
     """Sets the color of the separator"""
     return setcolor(swap(color) if sep_inverse else color)
+
 
 prompt_obj: Dict[str, any] = {}
 
@@ -25,11 +24,11 @@ if not toml_ok:
     prompt_obj, json_ok = get_json(debug=USE_DEBUG_CONFIG)
 
 segments: List[Segment] = []
-obj_segs: List[any] = prompt_obj.get('segments', [])
-separator: str = prompt_obj.get('separator', '|')
-sep_inverse: bool = prompt_obj.get('separator_inverse', False)
-IS_SPACE_END: bool = prompt_obj.get('space_at_end', True)
-BCOLOR: int = prompt_obj.get('background_color', 0)
+obj_segs: List[any] = prompt_obj.get("segments", [])
+separator: str = prompt_obj.get("separator", "|")
+sep_inverse: bool = prompt_obj.get("separator_inverse", False)
+IS_SPACE_END: bool = prompt_obj.get("space_at_end", True)
+BCOLOR: int = prompt_obj.get("background_color", 0)
 for seg in obj_segs:
     segments.append(parse_module(seg))
 
