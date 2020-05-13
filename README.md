@@ -1,6 +1,6 @@
 ![An image of the example config](./example_config.png)
 # Bash-Segments - Another bash prompt framework
-Bash-Segments is a small (less than 100 significant python lines of code) framework for customizing bash prompts. It reads a configuration from a TOML or JSON  file and creates a prompt based on it. 
+Bash-Segments is a small (less than 200 significant python lines of code) framework for customizing bash prompts. It reads a configuration from a TOML or JSON  file and creates a prompt based on it. 
 ## Installation
 1. Install `python-toml` by either getting it from your package manager or by running `pip3 install --user toml`
 2. Clone the git repository and make sure you have python 3 installed:
