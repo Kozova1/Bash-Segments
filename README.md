@@ -26,7 +26,7 @@ The segments consist of 3 or 4 values. In TOML, they are represented using table
 - `background` - (int, default: `0`) The background color of the segment (and `separator`).
 - `foreground` - (int, default: `1`) The foreground color of the segment (and `separator`).
 - `type` - (string, default `"custom"`) The type of the module to show. If `type` is not `"custom"`, `content` will be ignored. The available types are listed [here.](./TYPES.md)
-- `content` - (string, default: `"?"`) The contents of the segment. Can include bash escape sequences, as described in [this section in the bash manual.](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#index-prompting) Do not forget to escape these sequences so that your config doesn't get messed up. ***Will be ignored if *** `type = "custom"` *** is not set!***
+- `content` - (string, default: `"?"`) The contents of the segment. Can include bash escape sequences, as described in [this section in the bash manual.](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#index-prompting) Do not forget to escape these sequences so that your config doesn't get messed up. ***Will be ignored if*** `type = "custom"` ***is not set!***
 The segments are drawn in the order that they appear in the config file.
 ### Colors
 Execute `~/.local/share/bash-segments/colors.py` to print the color palette.
