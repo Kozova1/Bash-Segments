@@ -5,22 +5,22 @@
 	"space_at_end": false,
 	"segments": [
 		{
-			"content": "\\u",
+			"type": "username",
 			"background": 0,
 			"foreground": 7
 		},
 		{
-			"content": "\\h",
+			"type": "hostname-short",
 			"background": 4,
 			"foreground": 0
 		},
 		{
-			"content": "\\w",
+			"type": "directory",
 			"background": 2,
 			"foreground": 0
 		},
 		{
-			"content": "\\$",
+			"type": "$",
 			"background": 1,
 			"foreground": 0
 		}

@@ -5,34 +5,12 @@ import json
 import os
 import sys
 from typing import Dict, List
+from segment import Segment, swap, setcolor
+from color import Color
+from modules import parse_module
 
 
-class Color:
-    """This class stores a terminal color - foreground and background are each 0-255"""
-
-    def __init__(self, foreground: int, background: int):
-        self.foreground: int = foreground
-        self.background: int = background
-
-    def get_background(self) -> int:
-        """Returns the background color"""
-        return self.background
-
-    def get_foreground(self) -> int:
-        """Returns the foreground color"""
-        return self.foreground
-
-
-def swap(color: Color):
-    """Returns a color with the background and foreground swapped"""
-    return Color(color.get_background(), color.get_foreground())
-
-
-def setcolor(color: Color) -> str:
-    """Generate tput command to set colors"""
-    bg_col = color.get_background()
-    fg_col = color.get_foreground()
-    return f"\\[$(tput sgr0; tput setaf {fg_col}; tput setab {bg_col})\\]"
+USE_DEBUG_CONFIG: bool = bool(os.getenv('BASH_SEGMENTS_DEBUG', False))
 
 
 def set_sepcolor(color: Color) -> str:
@@ -40,33 +18,13 @@ def set_sepcolor(color: Color) -> str:
     return setcolor(swap(color) if sep_inverse else color)
 
 
-class Segment:
-    """This class represents a single segment in the prompt"""
-
-    def __init__(self, bgcol: int, fgcol: int, contents: str):
-        self.color: Color = Color(fgcol, bgcol)
-        self.contents: str = contents
-
-    def draw(self) -> str:
-        """Renders the Segment into bash syntax"""
-        my_color = self.get_color()
-        my_contents = self.get_contents()
-        return setcolor(my_color) + my_contents
-
-    def get_contents(self) -> str:
-        """Returns the contents of the segment"""
-        return self.contents
-
-    def get_color(self) -> Color:
-        """Returns the color of the segment"""
-        return self.color
-
-
 prompt_obj: Dict[str, any] = {}
 try:
     s: str = ""
     base_conf_dir = os.getenv("XDG_CONFIG_HOME", "~/.config")
-    file_path = os.path.join(base_conf_dir, "bash-segments", "prompt.json")
+    file_path = './prompt.json'
+    if not USE_DEBUG_CONFIG:
+        file_path = os.path.join(base_conf_dir, "bash-segments", "prompt.json")
     with open(os.path.expanduser(file_path), "r") as f:
         s = f.read()
     prompt_obj = json.loads(s)
@@ -83,28 +41,13 @@ except OSError:
     sys.exit(1)
 
 segments: List[Segment] = []
-obj_segs: List[any] = []
-separator: str = "|"
-sep_inverse: bool = False
-IS_SPACE_END: bool = True
-BCOLOR: int = 0
-try:
-    obj_segs = prompt_obj["segments"]
-    separator = prompt_obj["separator"]
-    sep_inverse = prompt_obj["separator_inverse"]
-    IS_SPACE_END = prompt_obj["space_at_end"]
-    BCOLOR = prompt_obj["background_color"]
-except KeyError:
-    pass
+obj_segs: List[any] = prompt_obj.get('segments', [])
+separator: str = prompt_obj.get('separator', '|')
+sep_inverse: bool = prompt_obj.get('separator_inverse', False)
+IS_SPACE_END: bool = prompt_obj.get('space_at_end', True)
+BCOLOR: int = prompt_obj.get('background_color', 0)
 for seg in obj_segs:
-    bg: int = 0
-    fg: int = 1
-    content: str = "?"
-    try:
-        bg, fg, content = seg["background"], seg["foreground"], seg["content"]
-    except KeyError:
-        pass
-    segments.append(Segment(bg, fg, content))
+    segments.append(parse_module(seg))
 
 final_prompt: str = 'PS1="'
 for i, seg in enumerate(segments):
@@ -115,7 +58,7 @@ for i, seg in enumerate(segments):
     except IndexError:
         pass
     new_color: Color = None
-    if next_seg == None:
+    if next_seg is None:
         new_color: Color = Color(seg.get_color().get_background(), BCOLOR)
     else:
         this_bg = seg.get_color().get_background()
