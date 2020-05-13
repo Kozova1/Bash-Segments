@@ -25,7 +25,7 @@ There is some top level config:
 The segments consist of 3 or 4 values. In TOML, they are represented using table arrays, for details look [here](https://github.com/toml-lang/toml#user-content-array-of-tables). Here are the available properties:
 - `background` - (int, default: `0`) The background color of the segment (and `separator`).
 - `foreground` - (int, default: `1`) The foreground color of the segment (and `separator`).
-- `type` - (string, default `"custom"`) The type of the module to show. If `type` is not `"custom"`, `content` will be ignored. The available types are listed [here.](#Types)
+- `type` - (string, default `"custom"`) The type of the module to show. If `type` is not `"custom"`, `content` will be ignored. The available types are listed [here.](./TYPES.md)
 - `content` - (string, default: `"?"`) The contents of the segment. can include bash escape sequences, as described in [this section in the bash manual.](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#index-prompting) Do not forget to escape these sequences so that your JSON doesn't get messed up.
 The segments are drawn in the order that they appear in the JSON file.
 ### Colors
