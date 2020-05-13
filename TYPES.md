@@ -17,6 +17,9 @@ All modules have a `type = "custom"` equivalent. The same as _ is to be used tog
 - `jobs` - Shows the number of jobs in the current shell. Same as `content = "\\j"`.
 - `term-name` - Shows the basename of the shell's terminal device name, for example: `2`. Same as `content = "\\l"`.
 - `shell-name` - Shows the name of the shell, for example: `bash`. Same as `content = "\\s"`.
+## Adding Custom Modules
+To add a custom module, edit your `~/.local/share/bash-segments/defined_modules.py`. Simply add more entries to the `MODULE_CONTENTS` dictionary, where the key is the name of the module and the value is the text. [this section in the bash manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#index-prompting) explains what special escape sequences you can put in your module content.
+
 ## Custom Date/time Format
 To show a custom time format, use a segment with `type = "custom"` and `content = "\\D{F}"`. Replace F with a format string as specified in [strftime(3)](http://man7.org/linux/man-pages/man3/strftime.3.html).
 
