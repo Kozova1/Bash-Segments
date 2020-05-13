@@ -1,7 +1,7 @@
 """Converts the new module system to the old content system."""
 
 from typing import Dict
-from segment import Segment
+from classes import Segment
 from defined_modules import MODULE_CONTENTS
 
 

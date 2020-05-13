@@ -3,8 +3,7 @@
 
 import os
 from typing import Dict, List
-from segment import Segment, swap, setcolor
-from color import Color
+from classes import Segment, swap, setcolor, Color
 from modules import parse_module
 from config_file import get_json, get_toml
 
